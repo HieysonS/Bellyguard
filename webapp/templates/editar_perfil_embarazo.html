@@ -1,0 +1,30 @@
+{% extends "baseB.html" %}
+
+{% block titulo %}
+Editar Perfil de Embarazo
+{% endblock %}
+
+{% block contenedor %}
+<div class="flex flex-col items-center">
+    <img src="https://placehold.co/100x100" alt="Cute moon illustration" class="mb-4">
+    <form method="POST">
+        {% csrf_token %}
+        <label for="num_semana_embarazo" class="block text-sm text-zinc-700 dark:text-zinc-300">¿Cuántas semanas va?</label>
+        <input type="number" id="num_semana_embarazo" name="num_semana_embarazo" class="shadow appearance-none border rounded py-2 px-3 text-zinc-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+        <label for="fecha_ultima_menstruacion" class="block text-sm text-zinc-700 dark:text-zinc-300">Ultima Fecha Mestruacion</label>
+        <input type="date" id="fecha_ultima_menstruacion" name="fecha_ultima_menstruacion" class="shadow appearance-none border rounded py-2 px-3 text-zinc-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+        <label for="edad" class="block text-sm text-zinc-700 dark:text-zinc-300">Edad</label>
+        <input type="number" id="edad" name="edad" class="shadow appearance-none border rounded py-2 px-3 text-zinc-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+        <label for="sintomas" class="block text-sm text-zinc-700 dark:text-zinc-300">Sintomas</label>
+        <select id="sintomas" name="sintomas" multiple class="shadow appearance-none border rounded py-2 px-3 text-zinc-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+            {% for sintoma in form.sintomas.field.queryset %}
+                <option value="{{ sintoma.pk }}">{{ sintoma.nombre }}</option>
+            {% endfor %}
+        </select>
+        </br>
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Guardar Cambios</button>
+    </form>
+</div>
+{% endblock %}
+
+

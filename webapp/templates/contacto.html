@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block titulo %} Contacto {% endblock %}
+{% block contenedor %}
+<div class="bg-zinc-100 dark:bg-zinc-800">
+    <div class="container mx-auto py-12 px-4">
+        <h2 class="text-3xl font-bold text-center text-zinc-800 dark:text-zinc-200">Contact Us</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+            <div>
+                <img src="https://placehold.co/400x300" alt="Contact Image" class="rounded-lg shadow-lg">
+            </div>
+            <div class="flex flex-col justify-center">
+                <p class="text-lg text-zinc-700 dark:text-zinc-300">Have any questions or inquiries? Feel free to reach out to us!</p>
+                <ul class="mt-4">
+                    <li class="flex items-center text-zinc-700 dark:text-zinc-300 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 1a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0 2a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0V6a1 1 0 0 0-1-1zm0 8a1 1 0 0 0 1-1v-.586l1.707 1.707a1 1 0 1 0 1.414-1.414L10 11.586l-2.121-2.121a1 1 0 0 0-1.414 1.414L9 13.414V14a1 1 0 0 0 1 1z"/>
+                        </svg>
+                        contact@example.com
+                    </li>
+                    <li class="flex items-center text-zinc-700 dark:text-zinc-300 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 1a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0 2a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0V6a1 1 0 0 0-1-1zm0 8a1 1 0 0 0 1-1v-.586l1.707 1.707a1 1 0 1 0 1.414-1.414L10 11.586l-2.121-2.121a1 1 0 0 0-1.414 1.414L9 13.414V14a1 1 0 0 0 1 1z"/>
+                        </svg>
+                        +1 234 567 890
+                    </li>
+                    <li class="flex items-center text-zinc-700 dark:text-zinc-300">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 2a8 8 0 1 0 0 16 8 8 0 0 0 0-16zm0 1a7 7 0 1 1 0 14 7 7 0 0 1 0-14zm0 2a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0V6a1 1 0 0 0-1-1zm0 8a1 1 0 0 0 1-1v-.586l1.707 1.707a1 1 0 1 0 1.414-1.414L10 11.586l-2.121-2.121a1 1 0 0 0-1.414 1.414L9 13.414V14a1 1 0 0 0 1 1z"/>
+                        </svg>
+                        123 Street Name, City
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

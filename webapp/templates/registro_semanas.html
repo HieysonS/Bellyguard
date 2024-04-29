@@ -1,0 +1,14 @@
+{% extends "baseB.html" %}
+{% block titulo %} Semanas {% endblock %}
+{% block contenedor %}
+<div class="flex flex-col items-center">
+    <img src="https://placehold.co/100x100" alt="Cute moon illustration" class="mb-4">
+     <form method="POST">
+        {% csrf_token %}
+        <label for="num_semana_embarazo" class="block text-sm text-zinc-700 dark:text-zinc-300">¿Cuántas semanas va?</label>
+        <input type="number" id="num_semana_embarazo" name="num_semana_embarazo" class="shadow appearance-none border rounded py-2 px-3 text-zinc-700 leading-tight focus:outline-none focus:shadow-outline mb-4">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Siguiente</button>
+    </form>
+</div>
+{% endblock %}
+
