@@ -1,0 +1,20 @@
+{% extends "baseB.html" %}
+
+{% block titulo %}
+Ver formacion del bebé
+{% endblock %}
+
+{% block contenedor %}
+<div class="flex flex-col items-center">
+    <div class="bg-white white:bg-zinc-800 shadow-md p-10 rounded-lg" style="width: 100%">
+      <h2 class="text-lg font-semibold mb-2">Notificaciones</h2>
+      <ul>
+          <li class="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-700 py-5">
+              <span>Nueva notificación!</span>
+              <button class="bg-blue-500 text-white p-2 rounded-lg">Ver</button>
+          </li>
+      </ul>
+    </div>
+  <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block" > Atras </a>
+</div>
+{% endblock %}

@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings
+from django.contrib.staticfiles.urls import static
 
 from webapp.views import *
 
@@ -34,5 +36,6 @@ urlpatterns = [
     path('bienvenido_nuevo/', bienvenido_nuevo, name='bienvenido_nuevo'),
     path('registro_semanas/', registro_semanas, name='registro_semanas'),
     path('editar_perfil_embarazo/', editar_perfil_embarazo, name='editar_perfil_embarazo'),
-
-]
+    path('ver_formacion/', info_embarazo, name='ver_formacion'),
+    path('notificaciones/', notificaciones, name='notificaciones'),
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

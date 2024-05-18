@@ -1,7 +1,9 @@
 from django.contrib.auth import authenticate, login, logout
+from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from webapp.forms import ClienteCreationForm, ClienteLoginForm, ClienteProfileForm, PerfilEmbarazoForm
-from webapp.models import Cliente, PerfilEmbarazo
+from webapp.forms import ClienteCreationForm, ClienteLoginForm, ClienteProfileForm,\
+    PerfilEmbarazoRegistroForm, PerfilEmbarazoEdicionForm
+from webapp.models import Cliente, PerfilEmbarazo, InfoEmbarazo
 
 
 # Create your views here.
@@ -77,27 +79,41 @@ def editar_perfil(request):
 
 def registro_semanas(request):
     if request.method == 'POST':
-        form = PerfilEmbarazoForm(request.POST)
+        form = PerfilEmbarazoRegistroForm(request.POST)
         if form.is_valid():
             perfil_embarazo = form.save(commit=False)
             perfil_embarazo.cliente = request.user
             perfil_embarazo.save()
             return redirect('bienvenido')
     else:
-        form = PerfilEmbarazoForm()
+        form = PerfilEmbarazoRegistroForm()
     return render(request, 'registro_semanas.html', {'form': form})
 
 
 def editar_perfil_embarazo(request):
     perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
     if request.method == 'POST':
-        form = PerfilEmbarazoForm(request.POST, instance=perfil_embarazo)
+        form = PerfilEmbarazoEdicionForm(request.POST, instance=perfil_embarazo)
         if form.is_valid():
             form.save()
             return redirect('bienvenido')
     else:
-        form = PerfilEmbarazoForm(instance=perfil_embarazo)
+        form = PerfilEmbarazoEdicionForm(instance=perfil_embarazo)
     return render(request, 'editar_perfil_embarazo.html', {'form': form})
+
+
+def info_embarazo(request):
+    lista_info_embarazo = InfoEmbarazo.objects.all().order_by('semana')
+    paginator = Paginator(lista_info_embarazo, 1)  # Muestra 1 semanas por página
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'info_embarazo.html', {'info_embarazo_list': page_obj})
+
+
+def notificaciones(request):
+    return render(request, 'notificaciones.html')
 
 
 def salir(request):

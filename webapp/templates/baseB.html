@@ -11,8 +11,11 @@
         <header class="flex justify-between items-center py-4">
             <a href="/" class="text-4xl font-bold text-black">BELLYGUARD</a>
             <nav>
-                <ul class="flex space-x-4">
-                    <li><a href={% url 'herramientas' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Herramientas</a></li>
+                <ul class="flex space-x-4 items-center">
+                    <li><a href={% url 'notificaciones' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 flex rounded">Notificaciones
+                        <span class="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center ml-2">1</span>
+                        </a>
+                    </li>
                     <li><a href={% url 'perfil' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Perfil</a></li>
                     <li><a href={% url 'salir' %} class="bg-red-200 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Salir</a></li>
                 </ul>

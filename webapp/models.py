@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext_lazy as _
 
 
 class Pais(models.Model):
@@ -40,6 +41,9 @@ class Cliente(AbstractUser):
 
 class Sintoma(models.Model):
     nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nombre
 
 
 class PerfilEmbarazo(models.Model):
@@ -94,3 +98,16 @@ class PrediccionPreeclampsia(models.Model):
     datos_medicos = models.ForeignKey(DatosMedicos, on_delete=models.CASCADE)
     fecha_prediccion = models.DateField()
     riesgo = models.FloatField()
+
+
+class InfoEmbarazo(models.Model):
+    semana = models.IntegerField(verbose_name='Número de Semana')
+    imagen = models.ImageField(verbose_name=_('Imagen'), upload_to='infoembarazo/', null=True, blank=True)
+    descripcion = models.TextField(verbose_name='Descripción')
+
+    def __str__(self):
+        return f'Semana {self.semana}'
+
+    def delete(self, using=None, keep_parents=False):
+        self.imagen.storage.delete(self.imagen.name)
+        super().delete()

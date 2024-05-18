@@ -10,4 +10,5 @@ admin.site.register(Enfermedad)
 admin.site.register(Intervencion)
 admin.site.register(Medicamento)
 admin.site.register(Sintoma)
+admin.site.register(InfoEmbarazo)
 

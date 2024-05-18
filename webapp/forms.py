@@ -27,7 +27,13 @@ class ClienteProfileForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email', 'pais', 'region', 'ciudad', 'distrito']
 
 
-class PerfilEmbarazoForm(forms.ModelForm):
+class PerfilEmbarazoRegistroForm(forms.ModelForm):
+    class Meta:
+        model = PerfilEmbarazo
+        fields = ['num_semana_embarazo']
+
+
+class PerfilEmbarazoEdicionForm(forms.ModelForm):
     class Meta:
         model = PerfilEmbarazo
         fields = ['num_semana_embarazo', 'fecha_ultima_menstruacion', 'edad', 'sintomas']
