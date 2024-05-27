@@ -1,0 +1,11 @@
+{% extends "baseContenidos.html" %}
+{% block titulo %}
+Estilo de Vida
+{% endblock %}
+
+{% block contenedor %}
+<div class="flex flex-col items-center">
+    <h1>El porcentaje de preeclampsia es:{{ porcentaje_preeclampsia }}%</h1>
+    <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block" > Atras </a>
+</div>
+{% endblock %}

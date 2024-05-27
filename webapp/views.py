@@ -1,22 +1,26 @@
+import joblib
+import pandas as pd
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from webapp.forms import ClienteCreationForm, ClienteLoginForm, ClienteProfileForm,\
-    PerfilEmbarazoRegistroForm, PerfilEmbarazoEdicionForm
-from webapp.models import Cliente, PerfilEmbarazo, InfoEmbarazo
+
+from webapp.forms import ClienteCreationForm, ClienteLoginForm, ClienteProfileForm, \
+    PerfilEmbarazoRegistroForm, PerfilEmbarazoEdicionForm, HistorialMedicoForm, AntecedentesFamiliaresForm, \
+    EstiloVidaForm
+from webapp.models import Cliente, PerfilEmbarazo, InfoEmbarazo, HistorialMedico, AntecedentesFamiliares, EstiloVida
 
 
 # Create your views here.
 def inicio(request):
-    return render(request, 'inicio.html')
+    return render(request, 'PortadasWeb/inicio.html')
 
 
 def mas_informacion(request):
-    return render(request, 'mas_informacion.html')
+    return render(request, 'PortadasWeb/mas_informacion.html')
 
 
 def contacto(request):
-    return render(request, 'contacto.html')
+    return render(request, 'PortadasWeb/contacto.html')
 
 
 def iniciar_sesion(request):
@@ -31,7 +35,7 @@ def iniciar_sesion(request):
                 return redirect('bienvenido')
     else:
         form = ClienteLoginForm()
-    return render(request, 'iniciar_sesion.html', {'form': form})
+    return render(request, 'Login/iniciar_sesion.html', {'form': form})
 
 
 def registrarse(request):
@@ -46,15 +50,15 @@ def registrarse(request):
             return redirect('bienvenido_nuevo')
     else:
         form = ClienteCreationForm()
-    return render(request, 'registrarse.html', {'form': form})
+    return render(request, 'Login/registrarse.html', {'form': form})
 
 
 def bienvenido(request):
-    return render(request, 'bienvenido.html')
+    return render(request, 'Contenidos/bienvenido.html')
 
 
 def bienvenido_nuevo(request):
-    return render(request, 'bienvenido_nuevo.html')
+    return render(request, 'Contenidos/bienvenido_nuevo.html')
 
 
 def herramientas(request):
@@ -63,7 +67,7 @@ def herramientas(request):
 
 def perfil(request):
     cliente = Cliente.objects.get(username=request.user.username)
-    return render(request, 'perfil.html', {'cliente': cliente})
+    return render(request, 'Perfiles/perfil.html', {'cliente': cliente})
 
 
 def editar_perfil(request):
@@ -74,7 +78,7 @@ def editar_perfil(request):
             return redirect('perfil')
     else:
         form = ClienteProfileForm(instance=request.user)
-    return render(request, 'editar_perfil.html', {'form': form})
+    return render(request, 'Perfiles/editar_perfil.html', {'form': form})
 
 
 def registro_semanas(request):
@@ -87,7 +91,7 @@ def registro_semanas(request):
             return redirect('bienvenido')
     else:
         form = PerfilEmbarazoRegistroForm()
-    return render(request, 'registro_semanas.html', {'form': form})
+    return render(request, 'Contenidos/registro_semanas.html', {'form': form})
 
 
 def editar_perfil_embarazo(request):
@@ -99,7 +103,88 @@ def editar_perfil_embarazo(request):
             return redirect('bienvenido')
     else:
         form = PerfilEmbarazoEdicionForm(instance=perfil_embarazo)
-    return render(request, 'editar_perfil_embarazo.html', {'form': form})
+    return render(request, 'Contenidos/editar_perfil_embarazo.html', {'form': form})
+
+
+def registro_historial_medico(request):
+    try:
+        historial_medico = HistorialMedico.objects.get(cliente=request.user)
+    except HistorialMedico.DoesNotExist:
+        historial_medico = HistorialMedico(cliente=request.user)
+    if request.method == 'POST':
+        form = HistorialMedicoForm(request.POST, instance=historial_medico)
+        if form.is_valid():
+            form.save()
+            return redirect('bienvenido')
+    else:
+        form = HistorialMedicoForm(instance=historial_medico)
+    return render(request, 'Contenidos/historial_medico_form.html', {'form': form})
+
+
+def registro_antecedentes_familiares(request):
+    try:
+        antecedentes_familiares = AntecedentesFamiliares.objects.get(cliente=request.user)
+    except AntecedentesFamiliares.DoesNotExist:
+        antecedentes_familiares = AntecedentesFamiliares(cliente=request.user)
+    if request.method == 'POST':
+        form = AntecedentesFamiliaresForm(request.POST, instance=antecedentes_familiares)
+        if form.is_valid():
+            form.save()
+            return redirect('bienvenido')
+    else:
+        form = AntecedentesFamiliaresForm(instance=antecedentes_familiares)
+    return render(request, 'Contenidos/registro_antecedentes_familiares.html', {'form': form})
+
+
+def registro_estilo_vida(request):
+    try:
+        estilo_vida = EstiloVida.objects.get(cliente=request.user)
+    except EstiloVida.DoesNotExist:
+        estilo_vida = EstiloVida(cliente=request.user)
+    if request.method == 'POST':
+        form = EstiloVidaForm(request.POST, instance=estilo_vida)
+        if form.is_valid():
+            form.save()
+            return redirect('bienvenido')
+    else:
+        form = EstiloVidaForm(instance=estilo_vida)
+    return render(request, 'Contenidos/registro_estilo_vida.html', {'form': form})
+
+
+def predecir_preeclampsia(request):
+    modeloPreeclampsia = joblib.load('modelosML/modeloPreeclampsia.pkl')
+    perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
+    historial_medico = get_object_or_404(HistorialMedico, cliente=request.user)
+    antecedentes_familiares = get_object_or_404(AntecedentesFamiliares, cliente=request.user)
+    estilo_vida = get_object_or_404(EstiloVida, cliente=request.user)
+
+    datos_completos = pd.DataFrame({'HipertensiónPrevia': [int(historial_medico.hipertension_previa)],
+                                    'HistPreeclampsia': [int(historial_medico.hist_preeclampsia)],
+                                    'Diabetes': [int(historial_medico.diabetes)],
+                                    'EnfermedRenal': [int(historial_medico.enfermed_renal)],
+                                    'Edad': [perfil_embarazo.edad],
+                                    'PesoKg': [perfil_embarazo.peso_kg],
+                                    'AlturaCM': [perfil_embarazo.altura_cm],
+                                    'Etnia': [perfil_embarazo.etnia.id],
+                                    'PreclaampsiaFamiliar': [int(antecedentes_familiares.preclampsia_familiar)],
+                                    'HistEnfermCardiovascularesFam': [int(antecedentes_familiares.hist_enferm_cardiovasculares_fam)],
+                                    'PASistolicammHg': [perfil_embarazo.pa_sistolica_mmhg.id],
+                                    'PADiastolicammHg': [perfil_embarazo.pa_diastolica_mmhg.id],
+                                    'ProteinaOrina': [perfil_embarazo.proteina_orina.id],
+                                    'GananciaPesoKg': [perfil_embarazo.ganancia_peso_kg],
+                                    'EdadGestacional': [perfil_embarazo.edad_gestacional],
+                                    'NumFetos': [perfil_embarazo.num_fetos],
+                                    'NivelActivFisica': [estilo_vida.nivel_activ_fisica.id],
+                                    'Dieta': [int(estilo_vida.dieta)],
+                                    'ConsumoTabaco': [int(estilo_vida.consumo_tabaco)],
+                                    'ConsumoAlcohol': [int(estilo_vida.consumo_alcohol)]})
+
+    probabilidad = modeloPreeclampsia.predict_proba(datos_completos)
+    probabilidad_preeclampsia = probabilidad[:, 1]
+    porcentaje_preeclampsia = probabilidad_preeclampsia * 100
+
+    return render(request, 'Contenidos/predecir_preeclampsia.html',
+                  {'porcentaje_preeclampsia': porcentaje_preeclampsia})
 
 
 def info_embarazo(request):
@@ -109,11 +194,11 @@ def info_embarazo(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render(request, 'info_embarazo.html', {'info_embarazo_list': page_obj})
+    return render(request, 'Contenidos/info_embarazo.html', {'info_embarazo_list': page_obj})
 
 
 def notificaciones(request):
-    return render(request, 'notificaciones.html')
+    return render(request, 'Contenidos/notificaciones.html')
 
 
 def salir(request):

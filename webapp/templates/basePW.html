@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block titulo %} {% endblock %} | Bellyguard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white-300">
+    <div class="max-w-full mx-auto px-4 py-8">
+        <header class="flex justify-between items-center py-4">
+            <a href="/" class="text-4xl font-bold text-black">BELLYGUARD</a>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li><a href={% url 'inicio' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Inicio</a></li>
+                    <li><a href={% url 'mas_informacion' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Más Información</a></li>
+                    <li><a href={% url 'contacto' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Contacto</a></li>
+                    <li><a href={% url 'iniciar_sesion' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="w-full">
+            {% block contenedor %} {% endblock %}
+        </div>
+    </div>
+</body>
+</html>

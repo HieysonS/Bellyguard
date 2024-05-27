@@ -1,0 +1,33 @@
+{% extends "baseLogin.html" %}
+{% block titulo %} Iniciar sesion {% endblock %}
+{% block contenedor %}
+    <div class="bg-white p-8 rounded-lg shadow-lg max-w-lg">
+        <div class="flex justify-center mb-6">
+            <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="Cute moon" class="w-24 h-24">
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
+                    Usuario
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username">
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 text-sm font-bold mb-2" for="password">
+                    Contraseña
+                </label>
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" type="password" name="password">
+            </div>
+            <div class="flex items-center justify-between">
+            <div class="flex items-center justify-center">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Ingresar
+                </button>
+                <a href="/registrarse" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                    Registrarse
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock %}

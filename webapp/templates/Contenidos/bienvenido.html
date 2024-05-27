@@ -1,0 +1,28 @@
+{% extends "baseContenidos.html" %}
+{% block titulo %} Bienvenido {% endblock %}
+{% block contenedor %}
+<div class="bg-zinc-100 dark:bg-zinc-800">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-zinc-800 dark:text-white mb-4">Bienvenido, {{ request.user.username.upper }}!</h1>
+        <p class="text-lg text-zinc-600 dark:text-zinc-300 mb-6">Explora nuestra aplicacion web ya que estamos para ayudarte en todo lo que necesites</p>
+    <div class="flex items-center justify-center">
+        <input type="text" placeholder="Search..." class="w-full md:w-1/2 px-4 py-2 rounded-l-lg focus:outline-none bg-white dark:bg-zinc-700 text-zinc-800 dark:text-white">
+        <button class="bg-blue-500 text-white px-4 py-2 rounded-r-lg">Buscar</button>
+    </div>
+</div>
+    <div class="bg-zinc-800 text-white p-8 rounded-lg max-w-sm mx-auto text-center">
+        <h1 class="text-4xl font-bold mb-4">¿Que deseas hacer?</h1>
+        <p class="mb-6">¡Elige una opcion!</p>
+        <a href="{% url 'editar_perfil_embarazo' %}" class="bg-green-500 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-green-600 inline-block">Editar Perfil Embarazo</a><br/>
+        <a href="{% url 'registro_antecedentes_familiares' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block">¿Cuales son tus Antecedentes Familiares?</a>
+        <br/>
+        <a href="{% url 'registro_estilo_vida' %}" class="bg-zinc-700 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-zinc-600 inline-block">¿Cual es tu estilo de vida?</a>
+        <br/>
+        <a href="{% url 'registro_historial_medico' %}" class="bg-red-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-red-400 inline-block">Registrar Historial Medico</a>
+        <br/>
+        <a href="{% url 'ver_formacion' %}" class="bg-gray-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-gray-400 inline-block">Formacion del bebé</a>
+        <br/>
+        <a href="{% url 'predecir_preeclampsia' %}" class="bg-blue-300 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-400 inline-block">PREDECIR EL RIESGO DE PREECLAMPSIA</a>
+    </div>
+</div>
+{% endblock %}

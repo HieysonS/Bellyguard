@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from .models import *
+from .models import Cliente, PerfilEmbarazo, HistorialMedico, PASistolicammHg, Etnias, PADiastolicammHg, ProteinaOrina, \
+    Pais, Region, Ciudad, Distrito, AntecedentesFamiliares, EstiloVida, NivelesActividadFisica
 
 
 class ClienteLoginForm(AuthenticationForm):
@@ -26,14 +27,60 @@ class ClienteProfileForm(forms.ModelForm):
         model = Cliente
         fields = ['first_name', 'last_name', 'email', 'pais', 'region', 'ciudad', 'distrito']
 
+    def __init__(self, *args, **kwargs):
+        super(ClienteProfileForm, self).__init__(*args, **kwargs)
+        self.fields['pais'].queryset = Pais.objects.all()
+        self.fields['pais'].label_from_instance = lambda obj: "%s" % obj.nombre
+        self.fields['region'].queryset = Region.objects.all()
+        self.fields['region'].label_from_instance = lambda obj: "%s" % obj.nombre
+        self.fields['ciudad'].queryset = Ciudad.objects.all()
+        self.fields['ciudad'].label_from_instance = lambda obj: "%s" % obj.nombre
+        self.fields['distrito'].queryset = Distrito.objects.all()
+        self.fields['distrito'].label_from_instance = lambda obj: "%s" % obj.nombre
+
 
 class PerfilEmbarazoRegistroForm(forms.ModelForm):
     class Meta:
         model = PerfilEmbarazo
-        fields = ['num_semana_embarazo']
+        fields = ['edad_gestacional']
 
 
 class PerfilEmbarazoEdicionForm(forms.ModelForm):
     class Meta:
         model = PerfilEmbarazo
-        fields = ['num_semana_embarazo', 'fecha_ultima_menstruacion', 'edad', 'sintomas']
+        fields = ['edad', 'edad_gestacional', 'last_mestruacion', 'num_fetos', 'peso_kg', 'altura_cm',
+                  'ganancia_peso_kg', 'etnia', 'pa_sistolica_mmhg', 'pa_diastolica_mmhg', 'proteina_orina']
+
+    def __init__(self, *args, **kwargs):
+        super(PerfilEmbarazoEdicionForm, self).__init__(*args, **kwargs)
+        self.fields['etnia'].queryset = Etnias.objects.all()
+        self.fields['etnia'].label_from_instance = lambda obj: "%s" % obj.nombre
+        self.fields['pa_sistolica_mmhg'].queryset = PASistolicammHg.objects.all()
+        self.fields['pa_sistolica_mmhg'].label_from_instance = lambda obj: "%s" % obj.nombre
+        self.fields['pa_diastolica_mmhg'].queryset = PADiastolicammHg.objects.all()
+        self.fields['pa_diastolica_mmhg'].label_from_instance = lambda obj: "%s" % obj.nombre
+        self.fields['proteina_orina'].queryset = ProteinaOrina.objects.all()
+        self.fields['proteina_orina'].label_from_instance = lambda obj: "%s" % obj.nombre
+
+
+class HistorialMedicoForm(forms.ModelForm):
+    class Meta:
+        model = HistorialMedico
+        fields = ['hipertension_previa', 'hist_preeclampsia', 'diabetes', 'enfermed_renal']
+
+
+class AntecedentesFamiliaresForm(forms.ModelForm):
+    class Meta:
+        model = AntecedentesFamiliares
+        fields = ['preclampsia_familiar', 'hist_enferm_cardiovasculares_fam']
+
+
+class EstiloVidaForm(forms.ModelForm):
+    class Meta:
+        model = EstiloVida
+        fields = ['nivel_activ_fisica', 'dieta', 'consumo_tabaco', 'consumo_alcohol']
+
+    def __init__(self, *args, **kwargs):
+        super(EstiloVidaForm, self).__init__(*args, **kwargs)
+        self.fields['nivel_activ_fisica'].queryset = NivelesActividadFisica.objects.all()
+        self.fields['nivel_activ_fisica'].label_from_instance = lambda obj: "%s" % obj.nombre

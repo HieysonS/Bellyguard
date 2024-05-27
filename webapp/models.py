@@ -39,7 +39,28 @@ class Cliente(AbstractUser):
     distrito = models.ForeignKey(Distrito, on_delete=models.SET_NULL, null=True)
 
 
-class Sintoma(models.Model):
+class Etnias(models.Model):
+    nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nombre
+
+
+class PASistolicammHg(models.Model):
+    nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nombre
+
+
+class PADiastolicammHg(models.Model):
+    nombre = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nombre
+
+
+class ProteinaOrina(models.Model):
     nombre = models.CharField(max_length=200)
 
     def __str__(self):
@@ -48,56 +69,46 @@ class Sintoma(models.Model):
 
 class PerfilEmbarazo(models.Model):
     cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
-    num_semana_embarazo = models.IntegerField()
-    fecha_ultima_menstruacion = models.DateField(null=True, blank=True)
-    edad = models.IntegerField(null=True, blank=True)
-    sintomas = models.ManyToManyField(Sintoma, blank=True)
+    edad = models.PositiveIntegerField(null=True)
+    edad_gestacional = models.PositiveIntegerField()
+    last_mestruacion = models.DateField(null=True)
+    num_fetos = models.PositiveIntegerField(null=True)
+    peso_kg = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    altura_cm = models.PositiveIntegerField(null=True)
+    ganancia_peso_kg = models.DecimalField(max_digits=5, decimal_places=2, null=True)
+    etnia = models.ForeignKey(Etnias, on_delete=models.SET_NULL, null=True)
+    pa_sistolica_mmhg = models.ForeignKey(PASistolicammHg, on_delete=models.SET_NULL, null=True)
+    pa_diastolica_mmhg = models.ForeignKey(PADiastolicammHg, on_delete=models.SET_NULL, null=True)
+    proteina_orina = models.ForeignKey(ProteinaOrina, on_delete=models.SET_NULL, null=True)
 
 
-class Enfermedad(models.Model):
+class HistorialMedico(models.Model):
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
+    hipertension_previa = models.BooleanField(default=False)
+    hist_preeclampsia = models.BooleanField(default=False)
+    diabetes = models.BooleanField(default=False)
+    enfermed_renal = models.BooleanField(default=False)
+
+
+class AntecedentesFamiliares(models.Model):
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
+    preclampsia_familiar = models.BooleanField(default=False)
+    hist_enferm_cardiovasculares_fam = models.BooleanField(default=False)
+
+
+class NivelesActividadFisica(models.Model):
     nombre = models.CharField(max_length=200)
 
-
-class Medicamento(models.Model):
-    nombre = models.CharField(max_length=200)
-
-
-class Intervencion(models.Model):
-    nombre = models.CharField(max_length=200)
+    def __str__(self):
+        return self.nombre
 
 
-class HistoriaClinica(models.Model):
-    embarazos_previos = models.IntegerField()
-    imc = models.FloatField()
-    enfermedades = models.ManyToManyField(Enfermedad)
-    medicamentos = models.ManyToManyField(Medicamento)
-    intervenciones = models.ManyToManyField(Intervencion)
-
-
-class HistoriaFamPreeclampsia(models.Model):
-    parentesco = models.CharField(max_length=200)
-    preeclampsia = models.BooleanField()
-    fecha = models.DateField()
-
-
-class DatosProteomicas(models.Model):
-    nombre = models.CharField(max_length=200)
-    nivel = models.FloatField()
-
-
-class DatosMedicos(models.Model):
-    perfil_embarazo = models.ForeignKey(PerfilEmbarazo, on_delete=models.CASCADE)
-    historia_clinica = models.ForeignKey(HistoriaClinica, on_delete=models.CASCADE)
-    historia_fam_preeclampsia = models.ForeignKey(HistoriaFamPreeclampsia, on_delete=models.CASCADE)
-    peso = models.FloatField()
-    presion_arterial = models.CharField(max_length=50)
-    datos_proteomicas = models.ManyToManyField(DatosProteomicas)
-
-
-class PrediccionPreeclampsia(models.Model):
-    datos_medicos = models.ForeignKey(DatosMedicos, on_delete=models.CASCADE)
-    fecha_prediccion = models.DateField()
-    riesgo = models.FloatField()
+class EstiloVida(models.Model):
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
+    nivel_activ_fisica = models.ForeignKey(NivelesActividadFisica, on_delete=models.SET_NULL, null=True)
+    dieta = models.BooleanField(default=False)
+    consumo_tabaco = models.BooleanField(default=False)
+    consumo_alcohol = models.BooleanField(default=False)
 
 
 class InfoEmbarazo(models.Model):
@@ -111,3 +122,4 @@ class InfoEmbarazo(models.Model):
     def delete(self, using=None, keep_parents=False):
         self.imagen.storage.delete(self.imagen.name)
         super().delete()
+
