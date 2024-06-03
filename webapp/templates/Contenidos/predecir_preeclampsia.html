@@ -1,11 +1,22 @@
 {% extends "baseContenidos.html" %}
 {% block titulo %}
-Estilo de Vida
+Riesgo preeclampsia
 {% endblock %}
 
 {% block contenedor %}
 <div class="flex flex-col items-center">
-    <h1>El porcentaje de preeclampsia es:{{ porcentaje_preeclampsia }}%</h1>
+    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > ML Para predecir riesgo de preeclampsia </h1>
+    <h1>Hola {{ request.user.first_name.upper }}</h1>
+    <h1>El riesgo de que tengas preclampsia es:  {{ porcentaje_formateado }}%</h1>
+    <div style="width: 100%; background-color: #f0f0f0; height: 20px; border-radius: 10px; overflow: hidden;">
+        <div style="height: 100%; background-color: #0074d9; width: {{ porcentaje_formateado }}%;"></div>
+    </div>
     <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block" > Atras </a>
 </div>
+<script>
+    const porcentaje = parseFloat("{{ porcentaje_formateado }}");
+    const barra = document.querySelector(".bar");
+    barra.style.transition = "width 0.5s ease";
+    barra.style.width = porcentaje + "%";
+</script>
 {% endblock %}

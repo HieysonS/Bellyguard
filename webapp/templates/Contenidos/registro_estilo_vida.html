@@ -5,11 +5,13 @@ Estilo de Vida
 
 {% block contenedor %}
 <div class="flex flex-col items-center">
+    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > Datos estilo de vida </h1>
     <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <div class="flex items-center justify-between">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Enviar</button>
+        <br/>
+        <div class="flex items-center justify-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Registrar</button>
         </div>
     </form>
 </div>

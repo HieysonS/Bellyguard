@@ -2,11 +2,14 @@
 {% block titulo %} Registro de Semanas de Embarazo {% endblock %}
 {% block contenedor %}
 <div class="flex flex-col items-center">
-    <img src="https://img.freepik.com/vector-gratis/lindo-bebe-durmiendo-ilustracion-icono-dibujos-animados-almohada-nube_138676-2812.jpg?size=338&ext=jpg&ga=GA1.1.1687694167.1714867200&semt=ais" alt="Cute moon illustration" class="mb-4" style="width: 100px; heigth: 100px">
+    <img src="https://img.freepik.com/vector-gratis/lindo-bebe-durmiendo-ilustracion-icono-dibujos-animados-almohada-nube_138676-2812.jpg?size=338&ext=jpg&ga=GA1.1.1687694167.1714867200&semt=ais" class="mb-4" style="width: 100px; heigth: 100px">
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrar</button>
+        <br/>
+        <div class="flex items-center justify-center">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Registrar</button>
+        </div>
     </form>
 </div>
 {% endblock %}

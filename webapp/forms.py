@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.forms import ModelForm
+
 from .models import Cliente, PerfilEmbarazo, HistorialMedico, PASistolicammHg, Etnias, PADiastolicammHg, ProteinaOrina, \
     Pais, Region, Ciudad, Distrito, AntecedentesFamiliares, EstiloVida, NivelesActividadFisica
 
@@ -23,6 +25,12 @@ class ClienteCreationForm(UserCreationForm):
 
 
 class ClienteProfileForm(forms.ModelForm):
+    email = forms.EmailField(required=False)
+    pais = forms.ModelChoiceField(queryset=Pais.objects.all(), required=False)
+    region = forms.ModelChoiceField(queryset=Region.objects.all(), required=False)
+    ciudad = forms.ModelChoiceField(queryset=Ciudad.objects.all(), required=False)
+    distrito = forms.ModelChoiceField(queryset=Distrito.objects.all(), required=False)
+
     class Meta:
         model = Cliente
         fields = ['first_name', 'last_name', 'email', 'pais', 'region', 'ciudad', 'distrito']
@@ -44,6 +52,8 @@ class PerfilEmbarazoRegistroForm(forms.ModelForm):
         model = PerfilEmbarazo
         fields = ['edad_gestacional']
 
+    edad_gestacional = forms.IntegerField(label='edad_gestacional', min_value=3, max_value=38)
+
 
 class PerfilEmbarazoEdicionForm(forms.ModelForm):
     class Meta:
@@ -52,7 +62,7 @@ class PerfilEmbarazoEdicionForm(forms.ModelForm):
                   'ganancia_peso_kg', 'etnia', 'pa_sistolica_mmhg', 'pa_diastolica_mmhg', 'proteina_orina']
 
     def __init__(self, *args, **kwargs):
-        super(PerfilEmbarazoEdicionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['etnia'].queryset = Etnias.objects.all()
         self.fields['etnia'].label_from_instance = lambda obj: "%s" % obj.nombre
         self.fields['pa_sistolica_mmhg'].queryset = PASistolicammHg.objects.all()
@@ -61,6 +71,12 @@ class PerfilEmbarazoEdicionForm(forms.ModelForm):
         self.fields['pa_diastolica_mmhg'].label_from_instance = lambda obj: "%s" % obj.nombre
         self.fields['proteina_orina'].queryset = ProteinaOrina.objects.all()
         self.fields['proteina_orina'].label_from_instance = lambda obj: "%s" % obj.nombre
+
+
+class PEmbaForm(ModelForm):
+    class Meta:
+        model = PerfilEmbarazo
+        fields = '__all__'
 
 
 class HistorialMedicoForm(forms.ModelForm):

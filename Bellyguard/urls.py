@@ -42,4 +42,5 @@ urlpatterns = [
     path('registro_antecedentes_familiares/', registro_antecedentes_familiares, name='registro_antecedentes_familiares'),
     path('registro_estilo_vida/', registro_estilo_vida, name='registro_estilo_vida'),
     path('predecir_preeclampsia/', predecir_preeclampsia, name='predecir_preeclampsia'),
+    path('predecir_fecha_parto/', predecir_fecha_parto, name='predecir_fecha_parto'),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

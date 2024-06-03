@@ -1,3 +1,5 @@
+from datetime import datetime, date
+
 import joblib
 import pandas as pd
 from django.contrib.auth import authenticate, login, logout
@@ -97,13 +99,13 @@ def registro_semanas(request):
 def editar_perfil_embarazo(request):
     perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
     if request.method == 'POST':
-        form = PerfilEmbarazoEdicionForm(request.POST, instance=perfil_embarazo)
-        if form.is_valid():
-            form.save()
+        PEmbaForm = PerfilEmbarazoEdicionForm(request.POST, instance=perfil_embarazo)
+        if PEmbaForm.is_valid():
+            PEmbaForm.save()
             return redirect('bienvenido')
     else:
-        form = PerfilEmbarazoEdicionForm(instance=perfil_embarazo)
-    return render(request, 'Contenidos/editar_perfil_embarazo.html', {'form': form})
+        PEmbaForm = PerfilEmbarazoEdicionForm(instance=perfil_embarazo)
+    return render(request, 'Contenidos/editar_perfil_embarazo.html', {'PEmbaForm': PEmbaForm})
 
 
 def registro_historial_medico(request):
@@ -182,9 +184,21 @@ def predecir_preeclampsia(request):
     probabilidad = modeloPreeclampsia.predict_proba(datos_completos)
     probabilidad_preeclampsia = probabilidad[:, 1]
     porcentaje_preeclampsia = probabilidad_preeclampsia * 100
+    porcentaje_formateado = "{:.2f}".format(porcentaje_preeclampsia[0])
 
     return render(request, 'Contenidos/predecir_preeclampsia.html',
-                  {'porcentaje_preeclampsia': porcentaje_preeclampsia})
+                  {'porcentaje_formateado': porcentaje_formateado})
+
+
+def predecir_fecha_parto(request):
+    modeloPartoFecha = joblib.load('modelosML/modeloPartoFecha.pkl')
+    perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
+    last_mestruacion = pd.to_datetime(perfil_embarazo.last_mestruacion, format='%d/%m/%Y').toordinal()
+    fechaPredicha = modeloPartoFecha.predict([[last_mestruacion]])
+    fechaParto = datetime.fromordinal(int(fechaPredicha[0]))
+    fecha_parto = datetime.date(fechaParto)
+    return render(request, 'Contenidos/predecir_fecha_parto.html',
+                  {'fecha_parto': fecha_parto})
 
 
 def info_embarazo(request):
