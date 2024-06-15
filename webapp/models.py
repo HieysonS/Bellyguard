@@ -111,6 +111,18 @@ class EstiloVida(models.Model):
     consumo_alcohol = models.BooleanField(default=False)
 
 
+class Sintomas(models.Model):
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
+    contraccion = models.BooleanField(default=False)
+    cuello_uterino_dilatado = models.BooleanField(default=False)
+    perdida_liquido_amniotico = models.BooleanField(default=False)
+    sangrado_vaginal = models.BooleanField(default=False)
+    infeccion_vaginal = models.BooleanField(default=False)
+    malformacion_uterina = models.BooleanField(default=False)
+    anemia = models.BooleanField(default=False)
+    parto_prematuro_anterior = models.BooleanField(default=False)
+
+
 class InfoEmbarazo(models.Model):
     semana = models.IntegerField(verbose_name='Número de Semana')
     imagen = models.ImageField(verbose_name=_('Imagen'), upload_to='infoembarazo/', null=True, blank=True)

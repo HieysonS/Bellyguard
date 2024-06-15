@@ -6,10 +6,44 @@ Estilo de Vida
 {% block contenedor %}
 <div class="flex flex-col items-center">
     <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > Datos estilo de vida </h1>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800" method="post">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800 text-center" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <br/>
+        <label for="nivel_activ_fisica" class="block text-gray-700 text-sm font-bold mb-2">Nivel de actividad fisica</label>
+        <select id="nivel_activ_fisica" name="nivel_activ_fisica" class="w-full px-3 py-2 rounded-lg border focus:outline-none focus:border-blue-500 white:bg-zinc-700 dark:text-zinc-500 mb-2 text-center">
+            {% for nivel_activ_fisica in form.nivel_activ_fisica.field.queryset %}
+            <option value="{{ nivel_activ_fisica.id }}" {% if form.nivel_activ_fisica.value == nivel_activ_fisica.id %}selected{% endif %}>{{ nivel_activ_fisica.nombre }}</option>
+            {% endfor %}
+        </select>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Hace dieta?
+            </label>
+            {% for radio in form.dieta %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Consume tabaco y/o fuma?
+            </label>
+            {% for radio in form.consumo_tabaco %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Consume alcohol?
+            </label>
+            {% for radio in form.consumo_alcohol %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
         <div class="flex items-center justify-center">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Registrar</button>
         </div>

@@ -1,0 +1,12 @@
+{% extends "baseContenidos.html" %}
+{% block titulo %}
+Parto prematuro
+{% endblock %}
+
+{% block contenedor %}
+<div class="flex flex-col items-center">
+    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">ML Para predecir el parto prematuro</h1>
+    <h1 class="mb-5">{{ result }}</h1>
+    <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block">Atras</a>
+</div>
+{% endblock %}

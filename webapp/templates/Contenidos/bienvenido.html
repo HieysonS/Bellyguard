@@ -1,25 +1,65 @@
 {% extends "baseContenidos.html" %}
 {% block titulo %} Bienvenido {% endblock %}
 {% block contenedor %}
-<div class="bg-zinc-100 dark:bg-zinc-800">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-3xl font-bold text-zinc-800 dark:text-white mb-4">Hola, {{ request.user.first_name.upper }} {{ request.user.last_name.upper }}!</h1>
-        <p class="text-lg text-zinc-600 dark:text-zinc-300 mb-6">Explora nuestra aplicacion web ya que estamos para ayudarte en todo lo que necesites</p>
-    <div class="flex items-center justify-center">
-        <input type="text" placeholder="Buscar..." class="w-full md:w-1/2 px-4 py-2 rounded-l-lg focus:outline-none bg-white dark:bg-zinc-700 text-zinc-800 dark:text-white">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded-r-lg">Buscar</button>
+<div class="p-4 bg-yellow-100 dark:bg-zinc-800">
+  <div class="flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 lg:space-x-4">
+    <div class="w-full lg:w-1/5 p-4 bg-pink-100 rounded-lg flex flex-col items-center dark:bg-pink-200">
+      <p class="mb-12"></p>
+      <img src="https://github.com/HieysonS/tprojetcsimgs/blob/main/profile.png?raw=true" class="rounded-lg mb-5" alt="Profile">
+      <p class="text-lg text-center dark:text-black mb-12">{{ request.user.first_name.upper }} {{ request.user.last_name.upper }}</p>
+      <div class="mt-4 px-4 py-2 bg-pink-100 text-center rounded-lg dark:bg-pink-500">
+          <a href="{% url 'ver_formacion' %}"><span>¡Mi embarazo por semana!</span></a>
+      </div>
     </div>
-</div>
-    <div class="bg-zinc-800 text-white p-8 rounded-lg max-w-sm mx-auto text-center">
-        <h1 class="text-4xl font-bold mb-4">Cuentanos sobre TI...</h1>
-        <p class="mb-6">¡Rellena tu información para ayudarte mejor...!</p>
-        <a href="{% url 'editar_perfil_embarazo' %}" class="bg-green-500 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-green-600 inline-block">Editar Perfil Embarazo</a><br/>
-        <a href="{% url 'registro_historial_medico' %}" class="bg-red-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-red-400 inline-block">¿Cuál es tu Historial Médico?</a>
-        <a href="{% url 'registro_antecedentes_familiares' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block">¿Cuales son tus Antecedentes Familiares?</a>
-        <a href="{% url 'registro_estilo_vida' %}" class="bg-zinc-700 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-zinc-600 inline-block">¿Cuál es tu estilo de vida?</a>
-        <a href="{% url 'ver_formacion' %}" class="bg-gray-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-gray-400 inline-block">Ver la formacián del bebé</a>
-        <a href="{% url 'predecir_preeclampsia' %}" class="bg-blue-300 text-white font-bold py-2 px-4 mb-3 rounded-full hover:bg-blue-400 inline-block">PREDECIR EL RIESGO DE PREECLAMPSIA</a>
-        <a href="{% url 'predecir_fecha_parto' %}" class="bg-green-800 text-white font-bold py-2 px-4 mb-3 rounded-full hover:bg-green-400 inline-block">PREDECIR LA FECHA DE PARTO</a>
+    <div class="lg:w-4/5">
+        <div class="w-full p-4 rounded-lg bg-green-200 mb-3 px-3">
+          <h2 class="text-xl font-bold text-center dark:text-black">¡Queremos conocerte!</h2>
+          <div class="grid grid-cols-2 gap-4 mt-4">
+            <a href="{% url 'editar_perfil_embarazo' %}">
+                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Embarazo actual</div>
+            </a>
+            <a href="{% url 'registro_historial_medico' %}">
+                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Historial medico</div>
+            </a>
+            <a href="{% url 'registro_antecedentes_familiares' %}">
+                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Antecedente familiar</div>
+            </a>
+            <a href="{% url 'registro_estilo_vida' %}">
+                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Estilo de vida</div>
+            </a>
+            <a href="{% url 'registro_sintomas' %}">
+                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Síntomas</div>
+            </a>
+          </div>
+        </div>
+
+        <div style="background-image: url('https://github.com/HieysonS/tprojetcsimgs/blob/main/fonod.png?raw=true');
+                    background-size: cover;
+                    background-repeat: no-repeat;"
+             class="w-full p-4 rounded-lg">
+          <h2 class="text-xl font-bold text-center dark:text-white">¡Resolvemos tus dudas con Machine Learning!</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+            <div class="flex flex-col items-center">
+                <a href="{% url 'predecir_preeclampsia' %}" class="flex flex-col items-center">
+                  <img style="width: 200px; heigth: 300px; object-fit: cover" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/preecl.png?raw=true" class="rounded-lg mb-2" alt="Consulta 1">
+                  <p class="dark:text-white">¿Cual es mi riesgo de sufrir preeclampsia?</p>
+                </a>
+            </div>
+            <div class="flex flex-col items-center">
+                <a href="{% url 'predecir_fecha_parto' %}" class="flex flex-col items-center">
+                  <img style="width: 200px; heigth: 300px; object-fit: cover" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/image.png?raw=true" class="rounded-lg mb-2" alt="Consulta 2">
+                  <p class="dark:text-white">¿Cuándo será mi fecha de parto?</p>
+                </a>
+            </div>
+            <div class="flex flex-col items-center">
+                <a href="{% url 'predecir_parto_prematuro' %}" class="flex flex-col items-center">
+                  <img style="width: 200px; heigth: 300px; object-fit: cover" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/parto-prematuro.png?raw=true" class="rounded-lg mb-2" alt="Consulta 3">
+                  <p class="dark:text-white">¿Tengo riesgo de parto prematuro?</p>
+                </a>
+            </div>
+          </div>
+        </div>
     </div>
+  </div>
 </div>
 {% endblock %}

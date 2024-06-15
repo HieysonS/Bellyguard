@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.forms import ModelForm
 
 from .models import Cliente, PerfilEmbarazo, HistorialMedico, PASistolicammHg, Etnias, PADiastolicammHg, ProteinaOrina, \
-    Pais, Region, Ciudad, Distrito, AntecedentesFamiliares, EstiloVida, NivelesActividadFisica
+    Pais, Region, Ciudad, Distrito, AntecedentesFamiliares, EstiloVida, NivelesActividadFisica, Sintomas
 
 
 class ClienteLoginForm(AuthenticationForm):
@@ -80,18 +80,33 @@ class PEmbaForm(ModelForm):
 
 
 class HistorialMedicoForm(forms.ModelForm):
+    HIPERTENSION_CHOICES = [(True, 'Sí'), (False, 'No')]
+    hipertension_previa = forms.ChoiceField(choices=HIPERTENSION_CHOICES, widget=forms.RadioSelect)
+    hist_preeclampsia = forms.ChoiceField(choices=HIPERTENSION_CHOICES, widget=forms.RadioSelect)
+    diabetes = forms.ChoiceField(choices=HIPERTENSION_CHOICES, widget=forms.RadioSelect)
+    enfermed_renal = forms.ChoiceField(choices=HIPERTENSION_CHOICES, widget=forms.RadioSelect)
+
     class Meta:
         model = HistorialMedico
         fields = ['hipertension_previa', 'hist_preeclampsia', 'diabetes', 'enfermed_renal']
 
 
 class AntecedentesFamiliaresForm(forms.ModelForm):
+    AMF_CHOICES = [(True, 'Sí'), (False, 'No')]
+    preclampsia_familiar = forms.ChoiceField(choices=AMF_CHOICES, widget=forms.RadioSelect)
+    hist_enferm_cardiovasculares_fam = forms.ChoiceField(choices=AMF_CHOICES, widget=forms.RadioSelect)
+
     class Meta:
         model = AntecedentesFamiliares
         fields = ['preclampsia_familiar', 'hist_enferm_cardiovasculares_fam']
 
 
 class EstiloVidaForm(forms.ModelForm):
+    EVF_CHOICES = [(True, 'Sí'), (False, 'No')]
+    dieta = forms.ChoiceField(choices=EVF_CHOICES, widget=forms.RadioSelect)
+    consumo_tabaco = forms.ChoiceField(choices=EVF_CHOICES, widget=forms.RadioSelect)
+    consumo_alcohol = forms.ChoiceField(choices=EVF_CHOICES, widget=forms.RadioSelect)
+
     class Meta:
         model = EstiloVida
         fields = ['nivel_activ_fisica', 'dieta', 'consumo_tabaco', 'consumo_alcohol']
@@ -100,3 +115,21 @@ class EstiloVidaForm(forms.ModelForm):
         super(EstiloVidaForm, self).__init__(*args, **kwargs)
         self.fields['nivel_activ_fisica'].queryset = NivelesActividadFisica.objects.all()
         self.fields['nivel_activ_fisica'].label_from_instance = lambda obj: "%s" % obj.nombre
+
+
+class SintomasForm(forms.ModelForm):
+    S_CHOICES = [(True, 'Sí'), (False, 'No')]
+    contraccion = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    cuello_uterino_dilatado = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    perdida_liquido_amniotico = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    sangrado_vaginal = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    infeccion_vaginal = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    malformacion_uterina = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    anemia = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+    parto_prematuro_anterior = forms.ChoiceField(choices=S_CHOICES, widget=forms.RadioSelect)
+
+    class Meta:
+        model = Sintomas
+        fields = ['contraccion', 'cuello_uterino_dilatado', 'perdida_liquido_amniotico',
+                  'sangrado_vaginal', 'infeccion_vaginal', 'malformacion_uterina', 'anemia',
+                  'parto_prematuro_anterior']

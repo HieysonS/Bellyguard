@@ -6,10 +6,48 @@ Historial medico
 {% block contenedor %}
 <div class="flex flex-col items-center">
     <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > Historial Medico </h1>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800" method="post">
+    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800 text-center" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <br/>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Tuvo hipertencion previamente?
+            </label>
+            {% for radio in form.hipertension_previa %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Tuvo preeclampsia en su ultimo embarazo?
+            </label>
+            {% for radio in form.hist_preeclampsia %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Tuvo diabetes previamente?
+            </label>
+            {% for radio in form.diabetes %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
+        <div class="mb-4">
+            <label class="block text-gray-700 text-sm font-bold mb-2">
+                ¿Sufre alguna enfermedad renal?
+            </label>
+            {% for radio in form.enfermed_renal %}
+            <label class="radio-inline" style="color: gray;">
+                {{ radio.tag }} {{ radio.choice_label }}
+            </label>
+            {% endfor %}
+        </div>
         <div class="flex items-center justify-center">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Registrar</button>
         </div>

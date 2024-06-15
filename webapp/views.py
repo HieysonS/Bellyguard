@@ -2,19 +2,24 @@ from datetime import datetime, date
 
 import joblib
 import pandas as pd
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
 
 from webapp.forms import ClienteCreationForm, ClienteLoginForm, ClienteProfileForm, \
     PerfilEmbarazoRegistroForm, PerfilEmbarazoEdicionForm, HistorialMedicoForm, AntecedentesFamiliaresForm, \
-    EstiloVidaForm
-from webapp.models import Cliente, PerfilEmbarazo, InfoEmbarazo, HistorialMedico, AntecedentesFamiliares, EstiloVida
+    EstiloVidaForm, SintomasForm
+from webapp.models import Cliente, PerfilEmbarazo, InfoEmbarazo, HistorialMedico, AntecedentesFamiliares, EstiloVida, \
+    Sintomas
 
 
 # Create your views here.
 def inicio(request):
-    return render(request, 'PortadasWeb/inicio.html')
+    if request.user.is_authenticated:
+        return redirect('bienvenido')
+    else:
+        return render(request, 'PortadasWeb/inicio.html')
 
 
 def mas_informacion(request):
@@ -55,10 +60,12 @@ def registrarse(request):
     return render(request, 'Login/registrarse.html', {'form': form})
 
 
+@login_required
 def bienvenido(request):
     return render(request, 'Contenidos/bienvenido.html')
 
 
+@login_required
 def bienvenido_nuevo(request):
     return render(request, 'Contenidos/bienvenido_nuevo.html')
 
@@ -67,11 +74,13 @@ def herramientas(request):
     pass
 
 
+@login_required
 def perfil(request):
     cliente = Cliente.objects.get(username=request.user.username)
     return render(request, 'Perfiles/perfil.html', {'cliente': cliente})
 
 
+@login_required
 def editar_perfil(request):
     if request.method == 'POST':
         form = ClienteProfileForm(request.POST, instance=request.user)
@@ -83,6 +92,7 @@ def editar_perfil(request):
     return render(request, 'Perfiles/editar_perfil.html', {'form': form})
 
 
+@login_required
 def registro_semanas(request):
     if request.method == 'POST':
         form = PerfilEmbarazoRegistroForm(request.POST)
@@ -96,6 +106,7 @@ def registro_semanas(request):
     return render(request, 'Contenidos/registro_semanas.html', {'form': form})
 
 
+@login_required
 def editar_perfil_embarazo(request):
     perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
     if request.method == 'POST':
@@ -108,6 +119,7 @@ def editar_perfil_embarazo(request):
     return render(request, 'Contenidos/editar_perfil_embarazo.html', {'PEmbaForm': PEmbaForm})
 
 
+@login_required
 def registro_historial_medico(request):
     try:
         historial_medico = HistorialMedico.objects.get(cliente=request.user)
@@ -123,6 +135,7 @@ def registro_historial_medico(request):
     return render(request, 'Contenidos/historial_medico_form.html', {'form': form})
 
 
+@login_required
 def registro_antecedentes_familiares(request):
     try:
         antecedentes_familiares = AntecedentesFamiliares.objects.get(cliente=request.user)
@@ -138,6 +151,7 @@ def registro_antecedentes_familiares(request):
     return render(request, 'Contenidos/registro_antecedentes_familiares.html', {'form': form})
 
 
+@login_required
 def registro_estilo_vida(request):
     try:
         estilo_vida = EstiloVida.objects.get(cliente=request.user)
@@ -153,6 +167,23 @@ def registro_estilo_vida(request):
     return render(request, 'Contenidos/registro_estilo_vida.html', {'form': form})
 
 
+@login_required
+def registro_sintomas(request):
+    try:
+        sintomas = Sintomas.objects.get(cliente=request.user)
+    except Sintomas.DoesNotExist:
+        sintomas = Sintomas(cliente=request.user)
+    if request.method == 'POST':
+        form = SintomasForm(request.POST, instance=sintomas)
+        if form.is_valid():
+            form.save()
+            return redirect('bienvenido')
+    else:
+        form = SintomasForm(instance=sintomas)
+    return render(request, 'Contenidos/registro_sintomas.html', {'form': form})
+
+
+@login_required
 def predecir_preeclampsia(request):
     modeloPreeclampsia = joblib.load('modelosML/modeloPreeclampsia.pkl')
     perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
@@ -190,6 +221,7 @@ def predecir_preeclampsia(request):
                   {'porcentaje_formateado': porcentaje_formateado})
 
 
+@login_required
 def predecir_fecha_parto(request):
     modeloPartoFecha = joblib.load('modelosML/modeloPartoFecha.pkl')
     perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
@@ -201,6 +233,37 @@ def predecir_fecha_parto(request):
                   {'fecha_parto': fecha_parto})
 
 
+@login_required
+def predecir_parto_prematuro(request):
+    modeloPartoPrematuro = joblib.load('modelosML/modeloPartoPrematuro.pkl')
+    sintomas = get_object_or_404(Sintomas, cliente=request.user)
+    historial_medico = get_object_or_404(HistorialMedico, cliente=request.user)
+    datoApredecir = pd.DataFrame({'Contracciones': [int(sintomas.contraccion)],
+                                  'DilatacionCuelloUterino': [int(sintomas.cuello_uterino_dilatado)],
+                                  'PerdidaLiquidoAmniotico': [int(sintomas.perdida_liquido_amniotico)],
+                                  'SangradoVaginal': [int(sintomas.sangrado_vaginal)],
+                                  'Infeccion': [int(sintomas.infeccion_vaginal)],
+                                  'EnfermedadRenal': [int(historial_medico.enfermed_renal)],
+                                  'Anemia': [int(sintomas.anemia)],
+                                  'MalformacionUterina': [int(sintomas.malformacion_uterina)],
+                                  'PartoPrematuroAnterior': [int(sintomas.parto_prematuro_anterior)]})
+    res = modeloPartoPrematuro.predict(datoApredecir)
+    if res == [1]:
+        result = "Prematuridad extrema: Nacimiento prematuro antes de la semana 28"
+    elif res == [2]:
+        result = "Parto prematuro severo: Entre la semana 28 y 31 de gestación"
+    elif res == [3]:
+        result = "Prematuridad moderada: Parto entre las semanas 32 y 33"
+    elif res == [4]:
+        result = "Parto prematuro límite o leve: A partir de la semana 34 a la 36"
+    else:
+        result = "No hay riesgo de parto prematuro"
+
+    return render(request, 'Contenidos/predecir_parto_prematuro.html',
+                  {'result': result})
+
+
+@login_required
 def info_embarazo(request):
     lista_info_embarazo = InfoEmbarazo.objects.all().order_by('semana')
     paginator = Paginator(lista_info_embarazo, 1)  # Muestra 1 semanas por página
@@ -211,6 +274,7 @@ def info_embarazo(request):
     return render(request, 'Contenidos/info_embarazo.html', {'info_embarazo_list': page_obj})
 
 
+@login_required
 def notificaciones(request):
     return render(request, 'Contenidos/notificaciones.html')
 
