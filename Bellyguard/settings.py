@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-7w&-4jj57$s2gv0c80i(w845ul_9e-5t@*4q6olc9w%_7_ga$=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['https://bellyguard.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
