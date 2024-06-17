@@ -3,32 +3,35 @@
 {% block contenedor %}
 <div class="p-4 bg-yellow-100 dark:bg-zinc-800">
   <div class="flex flex-col lg:flex-row justify-between space-y-4 lg:space-y-0 lg:space-x-4">
-    <div class="w-full lg:w-1/5 p-4 bg-pink-100 rounded-lg flex flex-col items-center dark:bg-pink-200">
-      <p class="mb-12"></p>
-      <img src="https://github.com/HieysonS/tprojetcsimgs/blob/main/profile.png?raw=true" class="rounded-lg mb-5" alt="Profile">
-      <p class="text-lg text-center dark:text-black mb-12">{{ request.user.first_name.upper }} {{ request.user.last_name.upper }}</p>
-      <div class="mt-4 px-4 py-2 bg-pink-100 text-center rounded-lg dark:bg-pink-500">
+    <div class="w-full lg:w-1/5 p-4 bg-pink-100 items-center dark:bg-pink-200">
+        <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+          <img src="https://github.com/HieysonS/tprojetcsimgs/blob/main/profile.png?raw=true" class="rounded-lg mb-5 mt-12" alt="Profile">
+          <p class="text-lg text-center dark:text-black mb-12 mt-12">{{ request.user.first_name.upper }} {{ request.user.last_name.upper }}</p>
+        </div>
+        <div class="mt-12 px-4 py-2 bg-pink-100 text-center rounded-lg dark:bg-pink-500">
           <a href="{% url 'ver_formacion' %}"><span>¡Mi embarazo por semana!</span></a>
-      </div>
+        </div>
     </div>
     <div class="lg:w-4/5">
-        <div class="w-full p-4 rounded-lg bg-green-200 mb-3 px-3">
+        <div class="w-full p-4 rounded-lg mb-3" style="background-image: url('https://github.com/HieysonS/tprojetcsimgs/blob/main/bgdatmed.png?raw=true');
+                    background-size: cover;
+                    background-repeat: no-repeat;">
           <h2 class="text-xl font-bold text-center dark:text-black">¡Queremos conocerte!</h2>
           <div class="grid grid-cols-2 gap-4 mt-4">
             <a href="{% url 'editar_perfil_embarazo' %}">
-                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Embarazo actual</div>
+                <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">Embarazo actual</div>
             </a>
             <a href="{% url 'registro_historial_medico' %}">
-                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Historial medico</div>
+                <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">Historial medico</div>
             </a>
             <a href="{% url 'registro_antecedentes_familiares' %}">
-                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Antecedente familiar</div>
+                <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">Antecedente familiar</div>
             </a>
             <a href="{% url 'registro_estilo_vida' %}">
-                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Estilo de vida</div>
+                <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">Estilo de vida</div>
             </a>
             <a href="{% url 'registro_sintomas' %}">
-                <div class="bg-pink-300 p-2 text-center rounded-lg white:bg-pink-700">Síntomas</div>
+                <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">Síntomas</div>
             </a>
           </div>
         </div>
@@ -39,19 +42,19 @@
              class="w-full p-4 rounded-lg">
           <h2 class="text-xl font-bold text-center dark:text-white">¡Resolvemos tus dudas con Machine Learning!</h2>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-            <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
                 <a href="{% url 'predecir_preeclampsia' %}" class="flex flex-col items-center">
                   <img style="width: 200px; heigth: 300px; object-fit: cover" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/preecl.png?raw=true" class="rounded-lg mb-2" alt="Consulta 1">
                   <p class="dark:text-white">¿Cual es mi riesgo de sufrir preeclampsia?</p>
                 </a>
             </div>
-            <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
                 <a href="{% url 'predecir_fecha_parto' %}" class="flex flex-col items-center">
                   <img style="width: 200px; heigth: 300px; object-fit: cover" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/image.png?raw=true" class="rounded-lg mb-2" alt="Consulta 2">
                   <p class="dark:text-white">¿Cuándo será mi fecha de parto?</p>
                 </a>
             </div>
-            <div class="flex flex-col items-center">
+            <div class="flex flex-col items-center bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
                 <a href="{% url 'predecir_parto_prematuro' %}" class="flex flex-col items-center">
                   <img style="width: 200px; heigth: 300px; object-fit: cover" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/parto-prematuro.png?raw=true" class="rounded-lg mb-2" alt="Consulta 3">
                   <p class="dark:text-white">¿Tengo riesgo de parto prematuro?</p>

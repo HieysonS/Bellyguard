@@ -5,14 +5,104 @@ Editar Perfil de Embarazo
 
 {% block contenedor %}
 <div class="flex flex-col items-center">
-    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > Datos embarazo actual </h1>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800" method="post">
+    <div class="bg-white-100 white:bg-zinc-800 p-8 rounded-lg shadow-md">
+    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold mb-6 text-center"> Datos embarazo actual</h1>
+    <form class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center" method="post">
         {% csrf_token %}
-        {{ PEmbaForm }}
-        <div class="flex items-center justify-center">
-            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Registrar</button>
+        <div class="mb-2">
+            <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Edad</label>
+            {{ form.edad }}
+        </div>
+        <div class="mb-2">
+            <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Edad Gestacional</label>
+            {{ form.edad_gestacional }}
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-2">
+                <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Fecha de Ultima Mestruación</label>
+                {{ form.last_mestruacion }}
+            </div>
+            <div class="mb-2">
+                <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Numero de fetos</label>
+                {{ form.num_fetos }}
+            </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-2">
+                <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Peso (Kg)</label>
+                {{ form.peso_kg }}
+            </div>
+            <div class="mb-2">
+                <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Altura (cm)</label>
+                {{ form.altura_cm }}
+            </div>
+        </div>
+        <div class="mb-2">
+            <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2">Peso ganado (Kg)</label>
+            {{ form.ganancia_peso_kg }}
+        </div>
+        <div class="mb-2">
+            <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2" for="etnia">Etnia</label>
+            <select class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" id="etnia"
+                    name="etnia">
+                {% for etnia in form.etnia.field.queryset %}
+                <option %} %}selected{% class="w-full px-3 py-2 border border-zinc-700 dark:border-zinc-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" endif etnia.id form.etnia.value== if value="{{ etnia.id }}"
+                        {%>
+                    {{ etnia.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="mb-2">
+                <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2" for="pa_sistolica_mmhg">Presion Arterial Sistólica</label>
+                <select class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" id="pa_sistolica_mmhg"
+                        name="pa_sistolica_mmhg">
+                    {% for pa_sistolica_mmhg in form.pa_sistolica_mmhg.field.queryset %}
+                    <option %} %}selected{% class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" endif etnia.id
+                            form.pa_sistolica_mmhg.value== if value="{{ pa_sistolica_mmhg.id }}"
+                            {%>
+                        {{ pa_sistolica_mmhg.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-2">
+                <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2" for="pa_diastolica_mmhg">Presion Arterial Diastólica</label>
+                <select class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" id="pa_diastolica_mmhg"
+                        name="pa_diastolica_mmhg">
+                    {% for pa_diastolica_mmhg in form.pa_diastolica_mmhg.field.queryset %}
+                    <option %} %}selected{% class="w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" endif
+                            form.pa_diastolica_mmhg.value== if pa_diastolica_mmhg.id value="{{ pa_diastolica_mmhg.id }}"
+                            {%>
+                        {{ pa_diastolica_mmhg.nombre }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="mb-2">
+            <label class="block text-zinc-700 dark:text-zinc-900 font-bold mb-2" for="proteina_orina">Proteina en la
+                orina</label>
+            <select class="w-full px-3 py-2 border border-zinc-900 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" id="proteina_orina"
+                    name="proteina_orina">
+                {% for proteina_orina in form.proteina_orina.field.queryset %}
+                <option %} %}selected{% class="w-full px-3 py-2 border border-zinc-900 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200" endif form.proteina_orina.value== if
+                        proteina_orina.id value="{{ proteina_orina.id }}"
+                        {%>
+                    {{ proteina_orina.nombre }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="flex items-center justify-center mt-12">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline"
+                    type="submit">
+                Registrar
+            </button>
         </div>
     </form>
+</div>
 </div>
 {% endblock %}
 

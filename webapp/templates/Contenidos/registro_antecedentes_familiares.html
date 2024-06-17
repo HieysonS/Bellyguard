@@ -4,10 +4,13 @@ Antecedentes familiares
 {% endblock %}
 
 {% block contenedor %}
-<div class="flex flex-col items-center">
-    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > Datos embarazo actual </h1>
-    <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 white:bg-zinc-800 text-center" method="post">
+<div class="bg-yellow-100 dark:bg-zinc-800 p-8 rounded-lg shadow-md">
+    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold text-center mb-12" > Historial Familiar </h1>
+    <form class="shadow-md rounded px-8 pt-6 pb-8 mb-4 text-center" style="background-image: url('https://www.clikisalud.net/wp-content/uploads/2016/09/historial-m%C3%A9dico-familiar.jpg');
+                                                                                            background-size: cover;
+                                                                                            background-repeat: no-repeat;" method="post">
         {% csrf_token %}
+        <div class="bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2">
                 ¿Algun familiar tuvo preeclampsia?
@@ -31,6 +34,7 @@ Antecedentes familiares
         <br/>
         <div class="flex items-center justify-center">
             <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Registrar</button>
+        </div>
         </div>
     </form>
 </div>

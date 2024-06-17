@@ -4,9 +4,43 @@ Parto prematuro
 {% endblock %}
 
 {% block contenedor %}
-<div class="flex flex-col items-center">
-    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">ML Para predecir el parto prematuro</h1>
-    <h1 class="mb-5">{{ result }}</h1>
-    <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block">Atras</a>
+<div class="p-4 bg-yellow-100 dark:bg-zinc-800 items-center">
+    <div class="flex flex-col items-center">
+        <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">ML Para predecir el parto prematuro</h1>
+        <h1 class="uppercase tracking-wide text-white text-indigo-500 font-semibold mb-3">Resultado: {{ result }}</h1>
+    </div>
+<section class="relative isolate overflow-hidden bg-white px-6 py-24 sm:py-32 lg:px-8">
+  <div class="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,theme(colors.indigo.100),white)] opacity-20"></div>
+  <div class="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+  <div class="mx-auto max-w-2xl lg:max-w-4xl">
+    <img class="mx-auto h-12" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/bellyguard-icon.png?raw=true" alt="">
+    <figure class="mt-10">
+      <blockquote class="text-xl font-semibold leading-8 text-gray-900 sm:text-2xl sm:leading-9">
+    <h2 class="text-center"><strong>Prevención</strong></h2><p>A menudo se desconoce la causa exacta del nacimiento prematuro. Sin embargo, es posible tomar algunas medidas para ayudar a reducir el riesgo para nacimiento prematuro, incluidas las siguientes:</p>
+        <ul>
+            <li><strong>Tomar suplementos de progesterona.</strong> La progesterona es una hormona que tiene una función importante en el embarazo. Una versión de la progesterona hecha en el laboratorio puede reducir el riesgo para nacimiento prematuro si tuviste antes un bebé prematuro. También puede reducir el riesgo para nacimiento prematuro cuando el cuello del útero es corto. El cuello del útero es el extremo inferior del útero que se abre durante el trabajo de parto para que pueda nacer el bebé.</li>
+            <li>
+            <p><strong>Cerclaje cervical.</strong> Es una cirugía que se hace durante el embarazo. El proveedor de atención médica puede sugerirla si tu cuello del útero es corto o si ya tuviste un parto prematuro.</p>
+            <p>Durante este procedimiento, el cuello del útero se cierra con suturas fuertes. Esto puede otorgarle más resistencia al útero. Las suturas se sacan cuando llega el momento de dar a luz al bebé. Pregunta al proveedor de atención médica si debes evitar actividades intensas durante el resto del embarazo.</p>
+            </li>
+        </ul>
+        <p> Algo que no ayuda a evitar un nacimiento prematuro es quedarse en la cama. El reposo en cama puede aumentar el riesgo para coágulos sanguíneos, huesos más débiles y menor fuerza muscular. Incluso puede aumentar las probabilidades de tener un parto prematuro.</p>
+      </blockquote>
+      <figcaption class="mt-10">
+        <img class="mx-auto h-10 w-10 rounded-full" src="https://github.com/HieysonS/tprojetcsimgs/blob/main/logo.png?raw=true" alt="">
+        <div class="mt-4 flex items-center justify-center space-x-3 text-base">
+          <div class="font-semibold text-gray-900">Bellyguard</div>
+          <svg viewBox="0 0 2 2" width="3" height="3" aria-hidden="true" class="fill-gray-900">
+            <circle cx="1" cy="1" r="1" />
+          </svg>
+          <div class="text-gray-600">Aplicacion web con Machile Learning</div>
+        </div>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+    <div class="flex flex-col items-center">
+        <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 mt-5 hover:bg-pink-400 inline-block" > Atras </a>
+    </div>
 </div>
 {% endblock %}

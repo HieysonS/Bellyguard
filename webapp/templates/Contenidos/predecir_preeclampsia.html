@@ -1,22 +1,78 @@
 {% extends "baseContenidos.html" %}
 {% block titulo %}
+{% load filters %}
 Riesgo preeclampsia
 {% endblock %}
 
 {% block contenedor %}
+<div class="p-4 bg-yellow-100 dark:bg-zinc-800">
 <div class="flex flex-col items-center">
-    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold" > ML Para predecir riesgo de preeclampsia </h1>
-    <h1>Hola {{ request.user.first_name.upper }}</h1>
-    <h1>El riesgo de que tengas preclampsia es:  {{ porcentaje_formateado }}%</h1>
-    <div style="width: 100%; background-color: #f0f0f0; height: 20px; border-radius: 10px; overflow: hidden;">
-        <div style="height: 100%; background-color: #0074d9; width: {{ porcentaje_formateado }}%;"></div>
+    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold mb-5" > ML Para predecir riesgo de preeclampsia </h1>
+    <h1 class="mb-5">Hola {{ request.user.first_name.upper }}</h1>
+    <div class="relative w-2/4 h-8 bg-zinc-300 dark:bg-zinc-700 rounded-full overflow-hidden">
+            <div class="absolute top-0 left-0 h-full bg-blue-500 progress-bar" style="width: {{ porcentaje_formateado }}%;"></div>
+            <div class="absolute inset-0 flex justify-center items-center">
+              <span class="text-zinc-700 dark:text-white font-semibold">Riesgo de preeclampsia: {{ porcentaje_formateado }}%</span>
+            </div>
+          </div>
+</div>
+<div class="m-10 mx-auto p-16 sm:p-24 lg:p-48 bg-gray-200">
+    <!-- Carousel Body -->
+    <div class="relative rounded-lg block md:flex items-center bg-gray-100 shadow-xl" style="min-height: 19rem;">
+      <div class="relative w-full md:w-2/5 h-full overflow-hidden rounded-t-lg md:rounded-t-none md:rounded-l-lg" style="min-height: 19rem;">
+        <img class="absolute inset-0 w-full h-full object-cover object-center" src="https://stripe.com/img/v3/payments/overview/photos/missguided.jpg" alt="">
+        <div class="absolute inset-0 w-full h-full bg-indigo-900 opacity-75"></div>
+        <div class="absolute inset-0 w-full h-full flex items-center justify-center fill-current text-white">
+            <img src="https://i0.wp.com/www.miconsumoresponsable.com/wp-content/uploads/2021/08/recomendaciones.png?fit=1024%2C576&ssl=1" alt="">
+        </div>
+      </div>
+      <div class="w-full md:w-3/5 h-full flex items-center bg-gray-100 rounded-lg">
+        <div class="p-12 md:pr-24 md:pl-16 md:py-12">
+          <p class="text-gray-600"><span class="text-gray-900">RECOMENDACIONES:</span>
+            <li>Monitoreo Regular: Es crucial realizar controles médicos regulares durante el embarazo para detectar signos tempranos de preeclampsia. Esto incluye la medición de la presión arterial y análisis de orina para verificar la presencia de proteínas.</li>
+            <li>Estilo de Vida Saludable: Mantener un estilo de vida saludable puede ayudar a reducir el riesgo de preeclampsia. Esto implica una dieta equilibrada, ejercicio moderado con aprobación médica y evitar el consumo de sustancias nocivas como el tabaco y el alcohol.</li>
+            <li>Atención Precoz: Si se presentan síntomas como hinchazón excesiva, dolores de cabeza severos o cambios en la visión, es importante buscar atención médica inmediata. Un diagnóstico y tratamiento tempranos son fundamentales para la salud de la madre y el bebé.</li>
+          </p>
+          <a class="flex items-baseline mt-3 text-indigo-600 hover:text-indigo-900 focus:text-indigo-900" href="">
+            <span>Leer mas</span>
+            <span class="text-xs ml-1">&#x279c;</span>
+          </a>
+        </div>
+        <svg class="hidden md:block absolute inset-y-0 h-full w-24 fill-current text-gray-100 -ml-12" viewBox="0 0 100 100" preserveAspectRatio="none">
+          <polygon points="50,0 100,0 50,100 0,100" />
+        </svg>
+      </div>
+      <button class="absolute top-0 mt-32 left-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-400 focus:text-indigo-400 -ml-6 focus:outline-none focus:shadow-outline">
+        <span class="block" style="transform: scale(-1);">&#x279c;</span>
+      </button>
+      <button class="absolute top-0 mt-32 right-0 bg-white rounded-full shadow-md h-12 w-12 text-2xl text-indigo-600 hover:text-indigo-400 focus:text-indigo-400 -mr-6 focus:outline-none focus:shadow-outline">
+        <span class="block" style="transform: scale(1);">&#x279c;</span>
+      </button>
     </div>
-    <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block" > Atras </a>
+
+    <!-- Carousel Tabs -->
+    <div class="flex items-center pt-5 justify-between">
+      <button class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"><img class="w-full" src="https://stripe.com/img/v3/payments/overview/logos/kickstarter.svg" alt="" style="max-height: 60px;"></button>
+      <button class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"><img class="w-full" src="https://stripe.com/img/v3/payments/overview/logos/slack.svg" alt="" style="max-height: 60px;"></button>
+      <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 mt-5 hover:bg-pink-400 inline-block text-center"> Atras </a>
+      <button class="px-2 opacity-50 hover:opacity-100 focus:opacity-100"><img class="w-full" src="https://stripe.com/img/v3/payments/overview/logos/charity_water.svg" alt="" style="max-height: 60px;"></button>
+      <button class="px-2 opacity-100 hover:opacity-100 focus:opacity-100"><img class="w-full" src="https://stripe.com/img/v3/payments/overview/logos/missguided.svg" alt="" style="max-height: 60px;"></button>
+    </div>
+  </div>
 </div>
 <script>
-    const porcentaje = parseFloat("{{ porcentaje_formateado }}");
-    const barra = document.querySelector(".bar");
-    barra.style.transition = "width 0.5s ease";
-    barra.style.width = porcentaje + "%";
+document.addEventListener('DOMContentLoaded', (event) => {
+    const progressBar = document.querySelector('.progress-bar');
+    const percentage = parseInt(progressBar.style.width);
+
+    if (percentage <= 30) {
+        progressBar.classList.add('bg-green-500');
+    } else if (percentage <= 60) {
+        progressBar.classList.add('bg-yellow-500');
+    } else {
+        progressBar.classList.add('bg-red-500');
+    }
+});
 </script>
+
 {% endblock %}

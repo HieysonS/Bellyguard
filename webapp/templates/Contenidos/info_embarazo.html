@@ -4,6 +4,7 @@
 {% block titulo %} Ver formación del bebé {% endblock %}
 
 {% block contenedor %}
+<div class="p-4 bg-yellow-100 dark:bg-zinc-800">
 <div class="container mx-auto px-4">
     {% for info in info_embarazo_list %}
     <div class="bg-white p-6 shadow-lg rounded-lg mb-6">
@@ -18,7 +19,7 @@
     {% endfor %}
 </div>
 
-<div class="py-2" style="display: flex; justify-content: center;">
+<div class="flex flex-col items-center" style="display: flex; justify-content: center;">
     <nav aria-label="Page navigation">
         <ul class="inline-flex items-center -space-x-px">
             <li>
@@ -50,8 +51,8 @@
             </li>
         </ul>
     </nav>
+    <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 mt-5 hover:bg-pink-400 inline-block text-center">Atras</a>
 </div>
-<a href="{% url 'bienvenido' %}" style="display: center" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block" > Atras </a>
-
+</div>
 {% endblock %}
 

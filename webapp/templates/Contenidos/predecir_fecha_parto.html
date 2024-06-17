@@ -1,13 +1,63 @@
-{% extends "baseContenidos.html" %}
-{% block titulo %}
-Fecha de parto
-{% endblock %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fecha de parto | Bellyguard</title>
+    <link rel="website icon" type="png" href="https://github.com/HieysonS/tprojetcsimgs/blob/main/bellyguard-icon.png?raw=true">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
+    <script>
 
-{% block contenedor %}
-<div class="flex flex-col items-center">
-    <h1 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">ML Para predecir la fecha de parto</h1>
-    <h1>Hola {{ request.user.first_name.upper }}</h1>
-    <h1 class="mb-2">Tu fecha de parto es: {{ fecha_parto }}</h1>
-    <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 hover:bg-pink-400 inline-block">Atras</a>
-</div>
-{% endblock %}
+      document.addEventListener('DOMContentLoaded', function() {
+        const calendarEl = document.getElementById('calendar')
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          initialDate: '{{ fecha_parto }}',
+          events: [
+            {
+              title: 'PARTO',
+              start: '{{ fecha_parto }}',
+            }
+          ]
+        })
+        calendar.render()
+      })
+    </script>
+    <style>
+      .fc-event-title, .fc-event-title-container {
+        background: white !important; /* Elimina el fondo */
+        color: black !important; /* Cambia el color del texto a negro */
+        font-weight: bold !important; /* Hace el texto en negrita */
+        text-align: center !important; /* Centra el texto */
+      }
+    </style>
+</head>
+<body class="bg-white-300">
+    <div class="max-w-full mx-auto px-4 py-8">
+        <header class="flex justify-between items-center py-4">
+            <a href="/" class="text-4xl font-bold text-black">BELLYGUARD</a>
+            <nav>
+                <ul class="flex space-x-4 items-center">
+                    <li><a href={% url 'notificaciones' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 flex rounded">Notificaciones
+                        <span class="bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center ml-2">1</span>
+                        </a>
+                    </li>
+                    <li><a href={% url 'bienvenido' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Bienvenido</a></li>
+                    <li><a href={% url 'perfil' %} class="bg-blue-400 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded">Perfil</a></li>
+                    <li><a href={% url 'salir' %} class="bg-red-200 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">Salir</a></li>
+                </ul>
+            </nav>
+        </header>
+        <div class="w-full">
+          <div class="p-4 bg-yellow-100 rounded-lg flex flex-col items-center dark:bg-zinc-800">
+            <div class="w-full lg:w-3/5 p-4 bg-pink-100 rounded-lg flex flex-col items-center dark:bg-pink-200">
+              <div id='calendar' style="width: 500px; height: 100%;"></div>
+              <a href="{% url 'bienvenido' %}" class="bg-pink-300 text-white font-bold py-2 px-4 rounded-full mb-3 mt-5 hover:bg-pink-400 inline-block" > Atras </a>
+            </div>
+          </div>
+        </div>
+    </div>
+</body>
+</html>

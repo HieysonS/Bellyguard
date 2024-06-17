@@ -2,8 +2,8 @@
 {% block titulo %} Bienvenido {% endblock %}
 {% block contenedor %}
 <div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-4 mx-auto max-w-md">
-    <img src="https://placehold.co/150x150" alt="Profile Picture" class="rounded-full mx-auto mb-4">
-    <h2 class="text-xl font-bold text-center">{{ request.user.username|upper }}</h2>
+    <img src="https://github.com/HieysonS/tprojetcsimgs/blob/main/profile.png?raw=true" alt="Profile Picture" class="rounded-full mx-auto mb-4">
+    <h2 class="text-xl font-bold text-center">{{ request.user.first_name|upper }} {{ request.user.last_name|upper }}</h2>
     <ul class="text-sm text-zinc-700 dark:text-zinc-300 mt-4">
         <li class="flex items-center mb-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
@@ -18,9 +18,9 @@
             Correo electronico: {{ request.user.email }}
         </li>
     </ul>
+    <div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-4 mx-auto max-w-md text-center">
+        <a href={% url 'editar_perfil' %} class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Perfil</a></li>
+    </div>
 </div>
 <br/>
-<div class="bg-white dark:bg-zinc-800 shadow-md rounded-lg p-4 mx-auto max-w-md text-center">
-    <a href={% url 'editar_perfil' %} class="bg-green-400 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Editar Perfil</a></li>
-</div>
 {% endblock %}

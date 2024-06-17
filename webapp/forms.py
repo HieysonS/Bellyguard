@@ -63,6 +63,46 @@ class PerfilEmbarazoEdicionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['edad'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200',
+            'placeholder': 'Edad',
+            'min': '16',
+            'max': '60'
+        })
+        self.fields['edad_gestacional'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200',
+            'placeholder': 'Edad',
+            'min': '1',
+            'max': '40'
+        })
+        self.fields['last_mestruacion'].widget = forms.DateInput(format='%Y-%m-%d', attrs={
+            'type': 'date',
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200'
+        })
+        self.fields['num_fetos'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200',
+            'placeholder': '# Fetos',
+            'min': '1',
+            'max': '5'
+        })
+        self.fields['peso_kg'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200',
+            'placeholder': 'Kg',
+            'min': '40',
+            'max': '150'
+        })
+        self.fields['altura_cm'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200',
+            'placeholder': 'CM',
+            'min': '120',
+            'max': '210'
+        })
+        self.fields['ganancia_peso_kg'].widget.attrs.update({
+            'class': 'w-full px-3 py-2 border border-zinc-300 dark:border-zinc-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-zinc-800 dark:text-zinc-200',
+            'placeholder': 'Peso Ganado (Kg)',
+            'min': '1',
+            'max': '50'
+        })
         self.fields['etnia'].queryset = Etnias.objects.all()
         self.fields['etnia'].label_from_instance = lambda obj: "%s" % obj.nombre
         self.fields['pa_sistolica_mmhg'].queryset = PASistolicammHg.objects.all()
@@ -71,12 +111,6 @@ class PerfilEmbarazoEdicionForm(forms.ModelForm):
         self.fields['pa_diastolica_mmhg'].label_from_instance = lambda obj: "%s" % obj.nombre
         self.fields['proteina_orina'].queryset = ProteinaOrina.objects.all()
         self.fields['proteina_orina'].label_from_instance = lambda obj: "%s" % obj.nombre
-
-
-class PEmbaForm(ModelForm):
-    class Meta:
-        model = PerfilEmbarazo
-        fields = '__all__'
 
 
 class HistorialMedicoForm(forms.ModelForm):

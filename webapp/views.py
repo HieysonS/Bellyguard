@@ -82,13 +82,17 @@ def perfil(request):
 
 @login_required
 def editar_perfil(request):
+    try:
+        edit_perfil = HistorialMedico.objects.get(cliente=request.user)
+    except HistorialMedico.DoesNotExist:
+        edit_perfil = HistorialMedico(cliente=request.user)
     if request.method == 'POST':
-        form = ClienteProfileForm(request.POST, instance=request.user)
+        form = ClienteProfileForm(request.POST, instance=edit_perfil)
         if form.is_valid():
             form.save()
             return redirect('perfil')
     else:
-        form = ClienteProfileForm(instance=request.user)
+        form = ClienteProfileForm(instance=edit_perfil)
     return render(request, 'Perfiles/editar_perfil.html', {'form': form})
 
 
@@ -108,15 +112,18 @@ def registro_semanas(request):
 
 @login_required
 def editar_perfil_embarazo(request):
-    perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
+    try:
+        perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
+    except HistorialMedico.DoesNotExist:
+        perfil_embarazo = PerfilEmbarazo(cliente=request.user)
     if request.method == 'POST':
-        PEmbaForm = PerfilEmbarazoEdicionForm(request.POST, instance=perfil_embarazo)
-        if PEmbaForm.is_valid():
-            PEmbaForm.save()
+        form = PerfilEmbarazoEdicionForm(request.POST, instance=perfil_embarazo)
+        if form.is_valid():
+            form.save()
             return redirect('bienvenido')
     else:
-        PEmbaForm = PerfilEmbarazoEdicionForm(instance=perfil_embarazo)
-    return render(request, 'Contenidos/editar_perfil_embarazo.html', {'PEmbaForm': PEmbaForm})
+        form = PerfilEmbarazoEdicionForm(instance=perfil_embarazo)
+    return render(request, 'Contenidos/editar_perfil_embarazo.html', {'form': form})
 
 
 @login_required
@@ -228,9 +235,9 @@ def predecir_fecha_parto(request):
     last_mestruacion = pd.to_datetime(perfil_embarazo.last_mestruacion, format='%d/%m/%Y').toordinal()
     fechaPredicha = modeloPartoFecha.predict([[last_mestruacion]])
     fechaParto = datetime.fromordinal(int(fechaPredicha[0]))
-    fecha_parto = datetime.date(fechaParto)
+    fecha_parto_formateada = fechaParto.strftime('%Y-%m-%d')
     return render(request, 'Contenidos/predecir_fecha_parto.html',
-                  {'fecha_parto': fecha_parto})
+                  {'fecha_parto': fecha_parto_formateada})
 
 
 @login_required
