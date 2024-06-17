@@ -1,0 +1,92 @@
+{% extends "baseContenidos.html" %}
+{% block titulo %}
+Sintomas
+{% endblock %}
+
+{% block contenedor %}
+<div class="bg-yellow-100 dark:bg-zinc-800 p-8 rounded-lg shadow-md">
+    <h2 class="uppercase tracking-wide text-sm text-indigo-500 font-semibold text-center mb-12">Registro de sintomas</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="w-full p-4 rounded-lg mb-3 grid grid-cols-1 sm:grid-cols-2 gap-4" style="background-image: url('https://www.fiatc.es/_cache_a257/_themesdelivery/staticblog/assets/img/uploads/2019/03/primeros-sintomas-de-embarazo.jpg');
+                                                                                            background-size: cover;
+                                                                                            background-repeat: no-repeat;">
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Presenta contracciones regularmente y dolorosas?</span>
+                <div>
+                    {% for radio in form.contraccion %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Presenta dilatación del cuello uterino?</span>
+                <div>
+                    {% for radio in form.cuello_uterino_dilatado %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Presenta perdida del liquido amniotico?</span>
+                <div>
+                    {% for radio in form.perdida_liquido_amniotico %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Presenta regularmente sangrado vaginal?</span>
+                <div>
+                    {% for radio in form.sangrado_vaginal %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Tiene alguna infeccion vaginal?</span>
+                <div>
+                    {% for radio in form.infeccion_vaginal %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Presenta una malformacion del utero?</span>
+                <div>
+                    {% for radio in form.malformacion_uterina %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Ha sufrido o sufre de anemia?</span>
+                <div>
+                    {% for radio in form.anemia %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+            <label class="flex items-center shadow justify-between bg-white p-5 rounded-xl bg-opacity-30 backdrop-filter backdrop-blur-lg text-center">
+                <span>¿Anteriormente su parto fue prematuro?</span>
+                <div>
+                    {% for radio in form.parto_prematuro_anterior %}
+                    {{ radio.tag }}
+                    <span class="ml-1">{{ radio.choice_label }}</span>
+                    {% endfor %}
+                </div>
+            </label>
+        </div>
+        <div class="text-center mt-6">
+            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mb-3 rounded focus:outline-none focus:shadow-outline">Guardar</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
