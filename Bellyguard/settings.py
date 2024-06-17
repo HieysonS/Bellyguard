@@ -22,9 +22,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7w&-4jj57$s2gv0c80i(w845ul_9e-5t@*4q6olc9w%_7_ga$='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://bellyguard.onrender.com']
 
 # Application definition
 
@@ -85,13 +85,13 @@ WSGI_APPLICATION = 'Bellyguard.wsgi.application'
 #     }
 # }
 
-DATABASES = {  # CONEXIÓN CON LA BASE DE DATOS
+DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'BellyguardDB',
-        'USER': 'postgres',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'bellyguarddb',
+        'USER': 'paolaadmin',
+        'PASSWORD': 'o7xnKbV79DXjaYPtrRDTD3PIhNaSPVeE',
+        'HOST': 'dpg-cpnunv88fa8c73b7olfg-a',
         'PORT': '5432',
     }
 }
@@ -136,6 +136,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
