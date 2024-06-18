@@ -55,9 +55,12 @@ def registrarse(request):
             user = authenticate(username=username, password=raw_password)
             login(request, user)
             return redirect('bienvenido_nuevo')
+        else:
+            print(form.errors)
     else:
         form = ClienteCreationForm()
     return render(request, 'Login/registrarse.html', {'form': form})
+
 
 
 @login_required
