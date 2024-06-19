@@ -52,7 +52,7 @@ class PerfilEmbarazoRegistroForm(forms.ModelForm):
         model = PerfilEmbarazo
         fields = ['edad_gestacional']
 
-    edad_gestacional = forms.IntegerField(label='edad_gestacional', min_value=3, max_value=38)
+    edad_gestacional = forms.IntegerField(label='edad_gestacional', min_value=1, max_value=38)
 
 
 class PerfilEmbarazoEdicionForm(forms.ModelForm):
