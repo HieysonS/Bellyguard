@@ -88,10 +88,10 @@ WSGI_APPLICATION = 'Bellyguard.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bellyguarddb',
-        'USER': 'paolaadmin',
-        'PASSWORD': 'o7xnKbV79DXjaYPtrRDTD3PIhNaSPVeE',
-        'HOST': 'dpg-cpnunv88fa8c73b7olfg-a',
+        'NAME': 'bellyguarddb_xb7a',
+        'USER': 'bellyguarddb_xb7a_user',
+        'PASSWORD': 'qjwUVD92uLnb2rTSDFlJo2VaKgU9Lh3n',
+        'HOST': 'dpg-cppgp708fa8c739fumn0-a',
         'PORT': '5432',
     }
 }
