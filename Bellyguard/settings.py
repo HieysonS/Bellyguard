@@ -44,7 +44,6 @@ MARKDOWNIFY = {
         "WHITELIST_TAGS": ["h1", "h2", "h3", "strong", "em", "p", "ul", "li", "br"]
     }
 }
-DEFAULT_CHARSET = 'utf-8'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -119,6 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
+
+DEFAULT_CHARSET = 'utf-8'
 
 LANGUAGE_CODE = 'es-mx'
 
