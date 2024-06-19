@@ -44,6 +44,7 @@ MARKDOWNIFY = {
         "WHITELIST_TAGS": ["h1", "h2", "h3", "strong", "em", "p", "ul", "li", "br"]
     }
 }
+DEFAULT_CHARSET = 'utf-8'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
