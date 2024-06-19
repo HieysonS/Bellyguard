@@ -6,13 +6,13 @@
         <div class="flex justify-center mb-6 mt-6">
             <img src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg" alt="Cute moon" class="w-24 h-24">
         </div>
-        <form method="post" autocomplete="off">
+        <form method="post">
             {% csrf_token %}
             <div class="mb-2">
                 <label class="block text-gray-700 text-sm font-bold mb-2" for="username">
                     Nombre de usuario
                 </label>
-                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username_{{ form_id }}" autocomplete="new-password">
+                <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" name="username">
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div class="mb-2">
