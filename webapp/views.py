@@ -117,7 +117,7 @@ def registro_semanas(request):
 def editar_perfil_embarazo(request):
     try:
         perfil_embarazo = get_object_or_404(PerfilEmbarazo, cliente=request.user)
-    except HistorialMedico.DoesNotExist:
+    except PerfilEmbarazo.DoesNotExist:
         perfil_embarazo = PerfilEmbarazo(cliente=request.user)
     if request.method == 'POST':
         form = PerfilEmbarazoEdicionForm(request.POST, instance=perfil_embarazo)
