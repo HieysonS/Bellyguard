@@ -75,23 +75,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Bellyguard.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
-# DATABASES = {
-#   'default': {
-#      'ENGINE': 'django.db.backends.sqlite3',
-#      'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'bellyguarddb_xb7a',
-        'USER': 'bellyguarddb_xb7a_user',
-        'PASSWORD': 'qjwUVD92uLnb2rTSDFlJo2VaKgU9Lh3n',
-        'HOST': 'dpg-cppgp708fa8c739fumn0-a',
+        'NAME': 'amazondb_a0w4',
+        'USER': 'amazondb_a0w4_user',
+        'PASSWORD': 'QJesQtv3h8h4OrKBCyEBLXAosIvIfPkw',
+        'HOST': 'dpg-cprpjgg8fa8c738sehcg-a',
         'PORT': '5432',
     }
 }
